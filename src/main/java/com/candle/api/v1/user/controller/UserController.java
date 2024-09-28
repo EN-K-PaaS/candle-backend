@@ -5,7 +5,9 @@ import com.candle.api.v1.user.dto.response.LoginResponse;
 import com.candle.api.v1.user.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class UserController {
 
     private final UserService userService;
