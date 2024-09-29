@@ -1,18 +1,20 @@
 package com.candle.api.v1.post.entity;
 
 import com.candle.api.v1.post.dto.PostType;
+import com.candle.api.v1.user.entity.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-public class PostEntity {
+public class Post {
 
     @Id @GeneratedValue
     private Integer id;
 
-    @Column(name = "user_id")
-    private String userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Enumerated(EnumType.STRING)
     private PostType type;
@@ -26,12 +28,12 @@ public class PostEntity {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    protected PostEntity() {
+    protected Post() {
     }
 
-    public PostEntity(Integer id, String userId, PostType type, String title, String content, String image, LocalDateTime createdAt) {
+    public Post(Integer id, User user, PostType type, String title, String content, String image, LocalDateTime createdAt) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.type = type;
         this.title = title;
         this.content = content;
@@ -43,8 +45,8 @@ public class PostEntity {
         return id;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     public PostType getType() {

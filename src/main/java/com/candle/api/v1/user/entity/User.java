@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
-public class UserEntity {
+public class User {
     @Id
     private String id;
 
@@ -24,17 +24,17 @@ public class UserEntity {
     @Column(columnDefinition = "varchar(200)")
     private String introduction;
 
-    protected UserEntity() {
+    protected User() {
     }
 
-    public UserEntity(String id, String password, String phoneNumber, String name) {
+    public User(String id, String password, String phoneNumber, String name) {
         this.id = id;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.name = name;
     }
 
-    public UserEntity(String id, String password, String phoneNumber, String profileImage, String name, String introduction) {
+    public User(String id, String password, String phoneNumber, String profileImage, String name, String introduction) {
         this.id = id;
         this.password = password;
         this.phoneNumber = phoneNumber;
