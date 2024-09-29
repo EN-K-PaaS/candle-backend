@@ -6,6 +6,7 @@ import com.candle.api.v1.post.dto.response.DiaryResponse;
 import com.candle.api.v1.post.dto.response.WritingDiaryResponse;
 import com.candle.api.v1.post.entity.Post;
 import com.candle.api.v1.post.repository.PostRepository;
+import com.candle.api.v1.user.entity.User;
 import com.candle.api.v1.user.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,20 +27,21 @@ public class PostService {
 
     @Transactional
     public WritingDiaryResponse writingDiary(WritingDiaryRequest writingDiaryRequest) {
-        Integer id = writingDiaryRequest.id();
         String userId = writingDiaryRequest.userId();
         String title = writingDiaryRequest.title();
         String content = writingDiaryRequest.content();
         String image = writingDiaryRequest.image();
         LocalDateTime createdAt = writingDiaryRequest.createdAt();
 
-        if (postRepository.existsById(id)) {
-            throw new IllegalArgumentException("이미 존재하는 id 입니다.");  // exception 수정 필요
+        if (userService.existsById(userId)) {
+            throw new IllegalArgumentException("해당 id에 대한 유저가 존재하지 않습니다.");  // exception 수정 필요
         }
+        
+        User user = userService.findById(userId);
+        Post post = new Post(user, PostType.DIARY, title, content, image, createdAt);
 
-        Post post = new Post(id, userService.findById(userId), PostType.DIARY, title, content, image, createdAt);
         postRepository.save(post);
-        return new WritingDiaryResponse(id, "다이어리 작성 완료");  // comment 수정 필요
+        return new WritingDiaryResponse(post.getId(), "다이어리 작성 완료");  // comment 수정 필요
     }
 
     @Transactional(readOnly = true)

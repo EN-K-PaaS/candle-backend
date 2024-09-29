@@ -31,4 +31,8 @@ public class UserService {
     public User findById(String id) {
         return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 id에 대한 유저가 존재하지 않습니다."));  // exception 수정 필요
     }
+
+    public boolean existsById(String id) {
+        return userRepository.existsById(id);
+    }
 }

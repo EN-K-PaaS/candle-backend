@@ -34,8 +34,7 @@ public class Post {
     protected Post() {
     }
 
-    public Post(Integer id, User user, PostType type, String title, String content, String image, LocalDateTime createdAt) {
-        this.id = id;
+    public Post(User user, PostType type, String title, String content, String image, LocalDateTime createdAt) {
         this.user = user;
         this.type = type;
         this.title = title;
