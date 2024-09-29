@@ -3,6 +3,7 @@ package com.candle.api.v1.post.repository;
 import com.candle.api.v1.post.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,6 +11,6 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    @Query("select p from Post p where p.user.id = :userId and p.type = 'DIARY'")
-    List<Post> findByUserId(String userId);
+//    @Query("SELECT p FROM Post p WHERE p.user.id = :id")
+//    List<Post> findByUserId(@Param("id") String id);
 }
