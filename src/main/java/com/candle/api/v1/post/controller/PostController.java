@@ -6,6 +6,8 @@ import com.candle.api.v1.post.dto.response.WritingDiaryResponse;
 import com.candle.api.v1.post.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class PostController {
 
@@ -21,13 +23,12 @@ public class PostController {
     }
 
     @GetMapping("/diary")
-    public DiaryResponse getDiary() {
-        return postService.getDiary();
+    public List<DiaryResponse> getDiary(@RequestParam String id) {
+        return postService.getDiary(id);
     }
 
-    @DeleteMapping("/diary/{id}")
-    public int deleteDiary(@PathVariable int id) {
+    @DeleteMapping("/diary")
+    public Integer deleteDiary(@RequestParam Integer id) {
         return postService.deleteDiary(id);
     }
-
 }
