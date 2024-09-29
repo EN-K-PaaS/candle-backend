@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class PostEntity {
 
     @Id @GeneratedValue
-    private int id;
+    private Integer id;
 
     @Column(name = "user_id")
     private String userId;
@@ -29,7 +29,7 @@ public class PostEntity {
     protected PostEntity() {
     }
 
-    public PostEntity(int id, String userId, PostType type, String title, String content, String image, LocalDateTime createdAt) {
+    public PostEntity(Integer id, String userId, PostType type, String title, String content, String image, LocalDateTime createdAt) {
         this.id = id;
         this.userId = userId;
         this.type = type;
@@ -39,7 +39,7 @@ public class PostEntity {
         this.createdAt = createdAt;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -25,7 +25,7 @@ public class UserService {
             return new LoginResponse(user.getId(), user.getPhoneNumber(), user.getProfileImage(),
                     user.getName(), user.getIntroduction());
         }
-        throw new IllegalArgumentException("Invalid id or password");
+        throw new IllegalArgumentException("Invalid id or password");   // exception 수정 필요
     }
 
     private boolean isExistUser(String id, String password) {
