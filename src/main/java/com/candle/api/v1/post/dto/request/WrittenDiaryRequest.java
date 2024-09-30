@@ -5,6 +5,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record WritingDiaryRequest(@NotBlank String userId, @NotNull String title, @NotNull String content, String image,
+public record WrittenDiaryRequest(@NotBlank String userId, @NotNull String title, @NotNull String content, String image,
                                   @NotNull LocalDateTime createdAt) {
 }

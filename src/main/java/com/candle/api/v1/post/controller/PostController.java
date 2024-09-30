@@ -1,10 +1,10 @@
 package com.candle.api.v1.post.controller;
 
 import com.candle.api.v1.post.dto.request.CommunityRequest;
-import com.candle.api.v1.post.dto.request.WritingDiaryRequest;
+import com.candle.api.v1.post.dto.request.WrittenDiaryRequest;
 import com.candle.api.v1.post.dto.response.CommunityResponse;
 import com.candle.api.v1.post.dto.response.DiaryResponse;
-import com.candle.api.v1.post.dto.response.WritingDiaryResponse;
+import com.candle.api.v1.post.dto.response.WrittenDiaryResponse;
 import com.candle.api.v1.post.service.PostService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +22,8 @@ public class PostController {
 
     // ======== 일기 작성, 조회, 삭제 API ========
     @PostMapping("/diary")
-    public WritingDiaryResponse writingDiary(@RequestBody WritingDiaryRequest writingDiaryRequest) {
-        return postService.writingDiary(writingDiaryRequest);
+    public WrittenDiaryResponse writingDiary(@RequestBody WrittenDiaryRequest writtenDiaryRequest) {
+        return postService.writingDiary(writtenDiaryRequest);
     }
 
     @GetMapping("/diary")

@@ -2,10 +2,10 @@ package com.candle.api.v1.post.service;
 
 import com.candle.api.v1.post.dto.PostType;
 import com.candle.api.v1.post.dto.request.CommunityRequest;
-import com.candle.api.v1.post.dto.request.WritingDiaryRequest;
+import com.candle.api.v1.post.dto.request.WrittenDiaryRequest;
 import com.candle.api.v1.post.dto.response.CommunityResponse;
 import com.candle.api.v1.post.dto.response.DiaryResponse;
-import com.candle.api.v1.post.dto.response.WritingDiaryResponse;
+import com.candle.api.v1.post.dto.response.WrittenDiaryResponse;
 import com.candle.api.v1.post.entity.Post;
 import com.candle.api.v1.post.repository.PostRepository;
 import com.candle.api.v1.user.entity.User;
@@ -28,12 +28,12 @@ public class PostService {
     }
 
     @Transactional
-    public WritingDiaryResponse writingDiary(WritingDiaryRequest writingDiaryRequest) {
-        String userId = writingDiaryRequest.userId();
-        String title = writingDiaryRequest.title();
-        String content = writingDiaryRequest.content();
-        String image = writingDiaryRequest.image();
-        LocalDateTime createdAt = writingDiaryRequest.createdAt();
+    public WrittenDiaryResponse writingDiary(WrittenDiaryRequest writtenDiaryRequest) {
+        String userId = writtenDiaryRequest.userId();
+        String title = writtenDiaryRequest.title();
+        String content = writtenDiaryRequest.content();
+        String image = writtenDiaryRequest.image();
+        LocalDateTime createdAt = writtenDiaryRequest.createdAt();
         
         if (!userService.existsById(userId)) {
             throw new IllegalArgumentException("해당 id에 대한 유저가 존재하지 않습니다.");  // exception 수정 필요
@@ -42,23 +42,22 @@ public class PostService {
         User user = userService.findById(userId);
         Post post = new Post(user, PostType.DIARY, title, content, image, createdAt);
         postRepository.save(post);
-        return new WritingDiaryResponse(post.getId(), "다이어리 작성 완료");  // comment 수정 필요
+        return new WrittenDiaryResponse(post.getId(), "다이어리 작성 완료");  // comment 수정 필요
     }
 
     @Transactional(readOnly = true)
     public List<DiaryResponse> getDiary(String userId) {
-        List<Post> posts = postRepository.findAll();
-        List<Post> diaries = posts.stream()
+        List<Post> diaries = postRepository.findAll().stream()
                 .filter(post -> post.getUser().getId().equals(userId))
                 .filter(post -> post.getType().equals(PostType.DIARY))
                 .toList();
 
-        if (posts.isEmpty()) {
+        if (diaries.isEmpty()) {
             throw new IllegalArgumentException("해당 id에 대한 다이어리가 존재하지 않습니다.");  // exception 수정 필요
         }
 
-        return posts.stream()
-                .map(post -> new DiaryResponse(post.getId(), post.getTitle(), post.getContent(), post.getImage(), post.getCreatedAt()))
+        return diaries.stream()
+                .map(diary -> new DiaryResponse(diary.getId(), diary.getTitle(), diary.getContent(), diary.getImage(), diary.getCreatedAt()))
                 .toList();
     }
 
