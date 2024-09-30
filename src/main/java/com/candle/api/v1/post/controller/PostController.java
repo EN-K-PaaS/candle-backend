@@ -1,6 +1,8 @@
 package com.candle.api.v1.post.controller;
 
+import com.candle.api.v1.post.dto.request.CommunityRequest;
 import com.candle.api.v1.post.dto.request.WritingDiaryRequest;
+import com.candle.api.v1.post.dto.response.CommunityResponse;
 import com.candle.api.v1.post.dto.response.DiaryResponse;
 import com.candle.api.v1.post.dto.response.WritingDiaryResponse;
 import com.candle.api.v1.post.service.PostService;
@@ -18,6 +20,7 @@ public class PostController {
         this.postService = postService;
     }
 
+    // ======== 일기 작성, 조회, 삭제 API ========
     @PostMapping("/diary")
     public WritingDiaryResponse writingDiary(@RequestBody WritingDiaryRequest writingDiaryRequest) {
         return postService.writingDiary(writingDiaryRequest);
@@ -30,6 +33,22 @@ public class PostController {
 
     @DeleteMapping("/diary")
     public Integer deleteDiary(@RequestParam Integer id) {
-        return postService.deleteDiary(id);
+        return postService.deletePost(id);
+    }
+
+    // ======== 게시글 작성, 조회, 삭제 API ========
+    @PostMapping("/community")
+    public Integer writingCommunity(@RequestBody CommunityRequest communityRequest) {
+        return postService.writingCommunity(communityRequest);
+    }
+
+    @GetMapping("/community")
+    public List<CommunityResponse> getCommunity() {
+        return postService.getCommunity();
+    }
+
+    @DeleteMapping("/community")
+    public Integer deleteCommunity(@RequestParam Integer id) {
+        return postService.deletePost(id);
     }
 }

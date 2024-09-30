@@ -1,7 +1,9 @@
 package com.candle.api.v1.post.service;
 
 import com.candle.api.v1.post.dto.PostType;
+import com.candle.api.v1.post.dto.request.CommunityRequest;
 import com.candle.api.v1.post.dto.request.WritingDiaryRequest;
+import com.candle.api.v1.post.dto.response.CommunityResponse;
 import com.candle.api.v1.post.dto.response.DiaryResponse;
 import com.candle.api.v1.post.dto.response.WritingDiaryResponse;
 import com.candle.api.v1.post.entity.Post;
@@ -61,12 +63,46 @@ public class PostService {
     }
 
     @Transactional
-    public Integer deleteDiary(Integer id) {
+    public Integer deletePost(Integer id) {
         if (!postRepository.existsById(id)) {
-            throw new IllegalArgumentException("해당 id에 대한 다이어리가 존재하지 않습니다.");  // exception 수정 필요
+            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
         }
 
         postRepository.deleteById(id);
         return id;
+    }
+
+    @Transactional
+    public Integer writingCommunity(CommunityRequest communityRequest) {
+        String userId = communityRequest.userId();
+        String title = communityRequest.title();
+        String content = communityRequest.content();
+        String image = communityRequest.image();
+        LocalDateTime createdAt = LocalDateTime.now();
+
+        if (!userService.existsById(userId)) {
+            throw new IllegalArgumentException("해당 id에 대한 유저가 존재하지 않습니다.");  // exception 수정 필요
+        }
+
+        User user = userService.findById(userId);
+        Post post = new Post(user, PostType.COMMUNITY, title, content, image, createdAt);
+        postRepository.save(post);
+        return post.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommunityResponse> getCommunity() {
+        List<Post> posts = postRepository.findAll();
+        List<Post> communities = posts.stream()
+                .filter(post -> post.getType().equals(PostType.COMMUNITY))
+                .toList();
+
+        if (communities.isEmpty()) {
+            throw new IllegalArgumentException("커뮤니티 게시글이 존재하지 않습니다.");  // exception 수정 필요
+        }
+
+        return communities.stream()
+                .map(post -> new CommunityResponse(post.getUser().getId(), post.getUser().getName(), post.getId(), post.getTitle(), post.getContent(), post.getImage(), post.getCreatedAt(), post.getLikeCount()))
+                .toList();
     }
 }
