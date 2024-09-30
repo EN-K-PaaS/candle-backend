@@ -2,6 +2,7 @@ package com.candle.api.v1.post.service;
 
 import com.candle.api.v1.post.dto.PostType;
 import com.candle.api.v1.post.dto.request.CommunityRequest;
+import com.candle.api.v1.post.dto.request.UpdatedDiaryRequest;
 import com.candle.api.v1.post.dto.request.WrittenDiaryRequest;
 import com.candle.api.v1.post.dto.response.CommunityResponse;
 import com.candle.api.v1.post.dto.response.DiaryResponse;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostService {
@@ -43,6 +45,28 @@ public class PostService {
         Post post = new Post(user, PostType.DIARY, title, content, image, createdAt);
         postRepository.save(post);
         return new WrittenDiaryResponse(post.getId(), "다이어리 작성 완료");  // comment 수정 필요
+    }
+
+    @Transactional
+    public Integer updateDiary(UpdatedDiaryRequest updatedDiaryRequest) {
+        Integer id = updatedDiaryRequest.id();
+
+        if (!postRepository.existsById(id) || !userService.existsById(updatedDiaryRequest.userId())) {
+            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
+        }
+
+        Optional<Post> byId = postRepository.findById(id);
+
+        if (byId.isEmpty()) {
+            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
+        }
+
+        Post post = byId.get();
+        post.setContent(updatedDiaryRequest.content());
+        post.setTitle(updatedDiaryRequest.title());
+        post.setImage(updatedDiaryRequest.image());
+        post.setCreatedAt(updatedDiaryRequest.createdAt());
+        return post.getId();
     }
 
     @Transactional(readOnly = true)

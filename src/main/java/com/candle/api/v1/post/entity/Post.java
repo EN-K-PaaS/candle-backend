@@ -70,4 +70,20 @@ public class Post {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

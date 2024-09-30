@@ -1,6 +1,7 @@
 package com.candle.api.v1.post.controller;
 
 import com.candle.api.v1.post.dto.request.CommunityRequest;
+import com.candle.api.v1.post.dto.request.UpdatedDiaryRequest;
 import com.candle.api.v1.post.dto.request.WrittenDiaryRequest;
 import com.candle.api.v1.post.dto.response.CommunityResponse;
 import com.candle.api.v1.post.dto.response.DiaryResponse;
@@ -24,6 +25,11 @@ public class PostController {
     @PostMapping("/diary")
     public WrittenDiaryResponse writingDiary(@RequestBody WrittenDiaryRequest writtenDiaryRequest) {
         return postService.writingDiary(writtenDiaryRequest);
+    }
+
+    @PutMapping("/diary")
+    public Integer updateDiary(@RequestBody UpdatedDiaryRequest updatedDiaryRequest) {
+        return postService.updateDiary(updatedDiaryRequest);
     }
 
     @GetMapping("/diary")
