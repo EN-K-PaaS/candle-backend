@@ -26,7 +26,11 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
+    @Column
     private String image;
+
+    @Column(name = "like_count")
+    private Integer likeCount = 0;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -67,6 +71,10 @@ public class Post {
         return image;
     }
 
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -85,5 +93,9 @@ public class Post {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void increaseLikeCount() {
+        this.likeCount++;
     }
 }

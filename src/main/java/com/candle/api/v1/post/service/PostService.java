@@ -2,6 +2,7 @@ package com.candle.api.v1.post.service;
 
 import com.candle.api.v1.post.dto.PostType;
 import com.candle.api.v1.post.dto.request.CommunityRequest;
+import com.candle.api.v1.post.dto.request.LikeRequest;
 import com.candle.api.v1.post.dto.request.UpdatedDiaryRequest;
 import com.candle.api.v1.post.dto.request.WrittenDiaryRequest;
 import com.candle.api.v1.post.dto.response.CommunityResponse;
@@ -127,5 +128,24 @@ public class PostService {
         return communities.stream()
                 .map(post -> new CommunityResponse(post.getUser().getId(), post.getUser().getName(), post.getId(), post.getTitle(), post.getContent(), post.getImage(), post.getCreatedAt(), post.getLikeCount()))
                 .toList();
+    }
+
+    @Transactional
+    public Integer increaseLike(LikeRequest likeRequest) {
+        Integer id = likeRequest.id();
+
+        if (!postRepository.existsById(id) || !userService.existsById(likeRequest.userId())) {
+            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
+        }
+
+        Optional<Post> byId = postRepository.findById(id);
+
+        if (byId.isEmpty()) {
+            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
+        }
+
+        Post post = byId.get();
+        post.increaseLikeCount();
+        return post.getLikeCount();
     }
 }

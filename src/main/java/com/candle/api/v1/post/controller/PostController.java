@@ -1,6 +1,7 @@
 package com.candle.api.v1.post.controller;
 
 import com.candle.api.v1.post.dto.request.CommunityRequest;
+import com.candle.api.v1.post.dto.request.LikeRequest;
 import com.candle.api.v1.post.dto.request.UpdatedDiaryRequest;
 import com.candle.api.v1.post.dto.request.WrittenDiaryRequest;
 import com.candle.api.v1.post.dto.response.CommunityResponse;
@@ -46,6 +47,11 @@ public class PostController {
     @PostMapping("/community")
     public Integer writingCommunity(@RequestBody CommunityRequest communityRequest) {
         return postService.writingCommunity(communityRequest);
+    }
+
+    @PostMapping("/community/like")
+    public Integer increaseLike(@RequestBody LikeRequest likeRequest) {
+        return postService.increaseLike(likeRequest);
     }
 
     @GetMapping("/community")
