@@ -1,6 +1,5 @@
 package com.candle.api.v1.dummy;
 
-import com.candle.api.v1.post.dto.PostType;
 import com.candle.api.v1.post.entity.Post;
 import com.candle.api.v1.user.entity.User;
 import jakarta.persistence.EntityManager;

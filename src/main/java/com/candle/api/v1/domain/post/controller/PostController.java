@@ -49,11 +49,6 @@ public class PostController {
         return postService.writingCommunity(communityRequest);
     }
 
-    @PostMapping("/community/like")
-    public Integer increaseLike(@RequestBody LikeRequest likeRequest) {
-        return postService.increaseLike(likeRequest);
-    }
-
     @GetMapping("/community")
     public List<CommunityResponse> getCommunity() {
         return postService.getCommunity();
@@ -62,5 +57,16 @@ public class PostController {
     @DeleteMapping("/community")
     public Integer deleteCommunity(@RequestParam Integer id) {
         return postService.deletePost(id);
+    }
+
+    // ======== 게시글 좋아요 개수 증가, 감소 API ========
+    @PostMapping("/community/like/increase")
+    public Integer increaseLike(@RequestBody LikeRequest likeRequest) {
+        return postService.increaseLike(likeRequest);
+    }
+
+    @PostMapping("/community/like/decrease")
+    public Integer decreaseLike(@RequestBody LikeRequest likeRequest) {
+        return postService.decreaseLike(likeRequest);
     }
 }

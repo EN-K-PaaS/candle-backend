@@ -1,6 +1,5 @@
 package com.candle.api.v1.post.service;
 
-import com.candle.api.v1.post.dto.PostType;
 import com.candle.api.v1.post.dto.request.CommunityRequest;
 import com.candle.api.v1.post.dto.request.LikeRequest;
 import com.candle.api.v1.post.dto.request.UpdatedDiaryRequest;
@@ -17,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PostService {
@@ -37,32 +35,19 @@ public class PostService {
         String content = writtenDiaryRequest.content();
         String image = writtenDiaryRequest.image();
         LocalDateTime createdAt = writtenDiaryRequest.createdAt();
-        
-        if (!userService.existsById(userId)) {
-            throw new IllegalArgumentException("해당 id에 대한 유저가 존재하지 않습니다.");  // exception 수정 필요
-        }
+
+        validateUserExistence(userId);
 
         User user = userService.findById(userId);
         Post post = new Post(user, PostType.DIARY, title, content, image, createdAt);
         postRepository.save(post);
-        return new WrittenDiaryResponse(post.getId(), "다이어리 작성 완료");  // comment 수정 필요
+        return new WrittenDiaryResponse(post.getId(), "다이어리 작성 완료");
     }
 
     @Transactional
     public Integer updateDiary(UpdatedDiaryRequest updatedDiaryRequest) {
-        Integer id = updatedDiaryRequest.id();
+        Post post = findPostById(updatedDiaryRequest.id());
 
-        if (!postRepository.existsById(id) || !userService.existsById(updatedDiaryRequest.userId())) {
-            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
-        }
-
-        Optional<Post> byId = postRepository.findById(id);
-
-        if (byId.isEmpty()) {
-            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
-        }
-
-        Post post = byId.get();
         post.setContent(updatedDiaryRequest.content());
         post.setTitle(updatedDiaryRequest.title());
         post.setImage(updatedDiaryRequest.image());
@@ -78,7 +63,7 @@ public class PostService {
                 .toList();
 
         if (diaries.isEmpty()) {
-            throw new IllegalArgumentException("해당 id에 대한 다이어리가 존재하지 않습니다.");  // exception 수정 필요
+            throw new IllegalArgumentException("해당 id에 대한 다이어리가 존재하지 않습니다.");
         }
 
         return diaries.stream()
@@ -88,10 +73,7 @@ public class PostService {
 
     @Transactional
     public Integer deletePost(Integer id) {
-        if (!postRepository.existsById(id)) {
-            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
-        }
-
+        validatePostExistence(id);
         postRepository.deleteById(id);
         return id;
     }
@@ -104,9 +86,7 @@ public class PostService {
         String image = communityRequest.image();
         LocalDateTime createdAt = LocalDateTime.now();
 
-        if (!userService.existsById(userId)) {
-            throw new IllegalArgumentException("해당 id에 대한 유저가 존재하지 않습니다.");  // exception 수정 필요
-        }
+        validateUserExistence(userId);
 
         User user = userService.findById(userId);
         Post post = new Post(user, PostType.COMMUNITY, title, content, image, createdAt);
@@ -122,7 +102,7 @@ public class PostService {
                 .toList();
 
         if (communities.isEmpty()) {
-            throw new IllegalArgumentException("커뮤니티 게시글이 존재하지 않습니다.");  // exception 수정 필요
+            throw new IllegalArgumentException("커뮤니티 게시글이 존재하지 않습니다.");
         }
 
         return communities.stream()
@@ -132,20 +112,38 @@ public class PostService {
 
     @Transactional
     public Integer increaseLike(LikeRequest likeRequest) {
-        Integer id = likeRequest.id();
-
-        if (!postRepository.existsById(id) || !userService.existsById(likeRequest.userId())) {
-            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
-        }
-
-        Optional<Post> byId = postRepository.findById(id);
-
-        if (byId.isEmpty()) {
-            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");  // exception 수정 필요
-        }
-
-        Post post = byId.get();
+        Post post = findPostById(likeRequest.id());
         post.increaseLikeCount();
         return post.getLikeCount();
+    }
+
+    @Transactional
+    public Integer decreaseLike(LikeRequest likeRequest) {
+        Post post = findPostById(likeRequest.id());
+
+        if (post.getLikeCount() < 1) {
+            throw new IllegalArgumentException("좋아요 개수가 이미 0입니다.");
+        }
+
+        post.decreaseLikeCount();
+        return post.getLikeCount();
+    }
+
+    private Post findPostById(Integer id) {
+        validatePostExistence(id);
+        return postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다."));
+    }
+
+    private void validatePostExistence(Integer id) {
+        if (!postRepository.existsById(id)) {
+            throw new IllegalArgumentException("해당 id에 대한 post가 존재하지 않습니다.");
+        }
+    }
+
+    private void validateUserExistence(String userId) {
+        if (!userService.existsById(userId)) {
+            throw new IllegalArgumentException("해당 id에 대한 유저가 존재하지 않습니다.");
+        }
     }
 }

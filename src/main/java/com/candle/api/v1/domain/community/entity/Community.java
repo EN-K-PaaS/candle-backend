@@ -1,0 +1,63 @@
+package com.candle.api.v1.domain.community.entity;
+
+import com.candle.api.v1.domain.comment.entity.Comment;
+import com.candle.api.v1.domain.user.entity.User;
+import com.candle.api.v1.global.embeddable.Post;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class Community {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comment = new ArrayList<>();
+
+    @Column(nullable = false)
+    private String title;
+
+    @Embedded
+    private Post post;
+
+    protected Community() {
+    }
+
+    public Community(User user, String title, String content, String image, LocalDateTime createdAt) {
+        this.user = user;
+        this.title = title;
+        this.post = new Post(content, image, createdAt);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void addComment(Comment comment) {
+        this.comment.add(comment);
+    }
+}
