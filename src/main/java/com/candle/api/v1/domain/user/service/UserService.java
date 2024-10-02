@@ -1,9 +1,9 @@
-package com.candle.api.v1.user.service;
+package com.candle.api.v1.domain.user.service;
 
-import com.candle.api.v1.user.dto.request.LoginRequest;
-import com.candle.api.v1.user.dto.response.LoginResponse;
-import com.candle.api.v1.user.entity.User;
-import com.candle.api.v1.user.repository.UserRepository;
+import com.candle.api.v1.domain.user.dto.request.LoginRequest;
+import com.candle.api.v1.domain.user.dto.response.LoginResponse;
+import com.candle.api.v1.domain.user.entity.User;
+import com.candle.api.v1.domain.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

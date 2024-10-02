@@ -1,4 +1,4 @@
-package com.candle.api.v1.dummy;
+package com.candle.api.v1.domain.dummy;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;

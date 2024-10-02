@@ -17,17 +17,17 @@ public class CommunityController {
         this.communityService = communityService;
     }
 
-    @PostMapping("/community")
+    @PostMapping("/")
     public Integer writingCommunity(@RequestBody CommunityRequest communityRequest) {
         return communityService.writingCommunity(communityRequest);
     }
 
-    @GetMapping("/community")
+    @GetMapping("/")
     public List<CommunityResponse> getCommunity() {
         return communityService.getCommunity();
     }
 
-    @DeleteMapping("/community")
+    @DeleteMapping("/")
     public Integer deleteCommunity(@RequestParam Integer id) {
         return communityService.deleteCommunity(id);
     }

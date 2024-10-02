@@ -1,4 +1,4 @@
-package com.candle.api.v1.user.dto.response;
+package com.candle.api.v1.domain.user.dto.response;
 
 import jakarta.validation.constraints.NotBlank;
 

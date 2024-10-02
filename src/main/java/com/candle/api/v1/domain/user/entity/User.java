@@ -1,4 +1,4 @@
-package com.candle.api.v1.user.entity;
+package com.candle.api.v1.domain.user.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package com.candle.api.v1.post.dto.request;
+package com.candle.api.v1.domain.diary.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

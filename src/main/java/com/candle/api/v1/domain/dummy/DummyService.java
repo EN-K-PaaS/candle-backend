@@ -1,7 +1,7 @@
-package com.candle.api.v1.dummy;
+package com.candle.api.v1.domain.dummy;
 
-import com.candle.api.v1.post.entity.Post;
-import com.candle.api.v1.user.entity.User;
+import com.candle.api.v1.domain.diary.entity.Diary;
+import com.candle.api.v1.domain.user.entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
@@ -31,8 +31,8 @@ public class DummyService {
     @Transactional
     public void generateDiary() {
         User user = entityManager.find(User.class, "SeoSangHyeok");
-        Post post1 = new Post(user, PostType.DIARY, "오늘은 날씨가 좋다.", "정말 좋다.", null, LocalDateTime.now());
+        Diary diary1 = new Diary(user, "오늘 날씨가 정말 좋다.", null, LocalDateTime.now());
 
-        entityManager.persist(post1);
+        entityManager.persist(diary1);
     }
 }

@@ -1,6 +1,6 @@
-package com.candle.api.v1.user.repository;
+package com.candle.api.v1.domain.user.repository;
 
-import com.candle.api.v1.user.entity.User;
+import com.candle.api.v1.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

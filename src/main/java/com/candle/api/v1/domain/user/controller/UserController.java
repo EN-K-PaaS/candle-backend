@@ -1,8 +1,8 @@
-package com.candle.api.v1.user.controller;
+package com.candle.api.v1.domain.user.controller;
 
-import com.candle.api.v1.user.dto.request.LoginRequest;
-import com.candle.api.v1.user.dto.response.LoginResponse;
-import com.candle.api.v1.user.service.UserService;
+import com.candle.api.v1.domain.user.dto.request.LoginRequest;
+import com.candle.api.v1.domain.user.dto.response.LoginResponse;
+import com.candle.api.v1.domain.user.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
