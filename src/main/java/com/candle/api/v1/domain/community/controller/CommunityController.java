@@ -1,8 +1,10 @@
 package com.candle.api.v1.domain.community.controller;
 
+import com.candle.api.v1.domain.community.dto.request.LikeRequest;
 import com.candle.api.v1.domain.community.service.CommunityService;
 import com.candle.api.v1.domain.community.dto.request.CommunityRequest;
 import com.candle.api.v1.domain.community.dto.response.CommunityResponse;
+import com.candle.api.v1.domain.community.service.LikeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +14,11 @@ import java.util.List;
 public class CommunityController {
 
     private final CommunityService communityService;
+    private final LikeService likeService;
 
-    public CommunityController(CommunityService communityService) {
+    public CommunityController(CommunityService communityService, LikeService likeService) {
         this.communityService = communityService;
+        this.likeService = likeService;
     }
 
     @PostMapping("/")
@@ -30,5 +34,15 @@ public class CommunityController {
     @DeleteMapping("/")
     public Integer deleteCommunity(@RequestParam Integer id) {
         return communityService.deleteCommunity(id);
+    }
+
+    @PostMapping("/like")
+    public Integer like(@RequestBody LikeRequest likeRequest) {
+        return likeService.like(likeRequest);
+    }
+
+    @DeleteMapping("/like")
+    public Integer unlike(@RequestParam Integer likeId) {
+        return likeService.unlike(likeId);
     }
 }

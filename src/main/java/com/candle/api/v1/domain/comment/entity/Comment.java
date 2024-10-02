@@ -15,9 +15,6 @@ public class Comment {
     @Column(nullable = false)
     private String content;
 
-    @Column(name = "like_count")
-    private Integer likeCount = 0;
-
     protected Comment() {
     }
 
@@ -33,13 +30,5 @@ public class Comment {
 
     public String getContent() {
         return content;
-    }
-
-    public Integer getLikeCount() {
-        return likeCount;
-    }
-
-    public void increaseLikeCount() {
-        likeCount++;
     }
 }

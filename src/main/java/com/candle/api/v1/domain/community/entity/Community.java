@@ -22,6 +22,9 @@ public class Community {
     @OneToMany(mappedBy = "post")
     private List<Comment> comment = new ArrayList<>();
 
+    @OneToMany(mappedBy = "community")
+    private List<Like> like;
+
     @Column(nullable = false)
     private String title;
 
@@ -53,11 +56,19 @@ public class Community {
         return post;
     }
 
+    public List<Like> getLike() {
+        return like;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
     public void addComment(Comment comment) {
         this.comment.add(comment);
+    }
+
+    public void addLike(Like like) {
+        this.like.add(like);
     }
 }

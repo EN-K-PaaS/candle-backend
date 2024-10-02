@@ -61,7 +61,16 @@ public class CommunityService {
         }
 
         return communities.stream()
-                .map(community -> new CommunityResponse(community.getUser().getId(), community.getUser().getName(), community.getId(), community.getTitle(), community.getPost().getContent(), community.getPost().getImage(), community.getPost().getCreatedAt(), community.getPost().getLikeCount()))
+                .map(community -> new CommunityResponse(community.getUser().getId(), community.getUser().getName(), community.getId(), community.getTitle(), community.getPost().getContent(), community.getPost().getImage(), community.getPost().getCreatedAt(), community.getLike().size()))
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public boolean existsById(Integer communityId) {
+        return communityRepository.existsById(communityId);
+    }
+
+    public Community findById(Integer communityId) {
+        return communityRepository.findById(communityId).orElseThrow(() -> new IllegalArgumentException("해당 id에 대한 커뮤니티 게시글이 존재하지 않습니다."));
     }
 }
