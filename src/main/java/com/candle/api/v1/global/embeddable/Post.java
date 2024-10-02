@@ -19,6 +19,11 @@ public class Post {
     public Post() {
     }
 
+    public Post(String content, LocalDateTime createdAt) {
+        this.content = content;
+        this.createdAt = createdAt;
+    }
+
     public Post(String content, String image, LocalDateTime createdAt) {
         this.content = content;
         this.image = image;
