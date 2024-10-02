@@ -20,10 +20,10 @@ public class Community {
     private User user;
 
     @OneToMany(mappedBy = "post")
-    private List<Comment> comment = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "community")
-    private List<Like> like;
+    private List<CommunityLike> communityLike;
 
     @Column(nullable = false)
     private String title;
@@ -56,8 +56,8 @@ public class Community {
         return post;
     }
 
-    public List<Like> getLike() {
-        return like;
+    public List<CommunityLike> getLike() {
+        return communityLike;
     }
 
     public void setTitle(String title) {
@@ -65,10 +65,10 @@ public class Community {
     }
 
     public void addComment(Comment comment) {
-        this.comment.add(comment);
+        this.comments.add(comment);
     }
 
-    public void addLike(Like like) {
-        this.like.add(like);
+    public void addLike(CommunityLike communityLike) {
+        this.communityLike.add(communityLike);
     }
 }

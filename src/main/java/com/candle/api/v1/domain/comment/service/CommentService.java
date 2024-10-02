@@ -50,13 +50,22 @@ public class CommentService {
         return commentId;
     }
 
+    @Transactional
     public Integer updateComment(UpdatedCommentRequest commentRequest) {
         if (!commentRepository.existsById(commentRequest.commentId())) {
             throw new IllegalArgumentException("존재하지 않는 댓글입니다.");
         }
-        
+
         Comment comment = commentRepository.findById(commentRequest.commentId()).get();
         comment.getPost().setContent(commentRequest.content());
         return comment.getId();
+    }
+
+    public Comment getComment(Integer commentId) {
+        return commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+    }
+
+    public Comment findById(Integer commentId) {
+        return commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
     }
 }

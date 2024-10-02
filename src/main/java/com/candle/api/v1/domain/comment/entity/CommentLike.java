@@ -1,28 +1,28 @@
-package com.candle.api.v1.domain.community.entity;
+package com.candle.api.v1.domain.comment.entity;
 
 import com.candle.api.v1.domain.user.entity.User;
 import jakarta.persistence.*;
 
 @Entity
-public class Like {
+public class CommentLike {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "community_id")
-    private Community community;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    protected Like() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
+
+    protected CommentLike() {
     }
 
-    public Like(Community community, User user) {
-        this.community = community;
+    public CommentLike(User user, Comment comment) {
         this.user = user;
-        community.addLike(this);
+        this.comment = comment;
+        comment.addLike(this);
     }
 
     public Integer getId() {

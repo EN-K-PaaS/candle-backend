@@ -1,10 +1,10 @@
 package com.candle.api.v1.domain.community.controller;
 
-import com.candle.api.v1.domain.community.dto.request.LikeRequest;
+import com.candle.api.v1.domain.community.dto.request.CommunityLikeRequest;
 import com.candle.api.v1.domain.community.service.CommunityService;
 import com.candle.api.v1.domain.community.dto.request.CommunityRequest;
 import com.candle.api.v1.domain.community.dto.response.CommunityResponse;
-import com.candle.api.v1.domain.community.service.LikeService;
+import com.candle.api.v1.domain.community.service.CommunityLikeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,11 +14,11 @@ import java.util.List;
 public class CommunityController {
 
     private final CommunityService communityService;
-    private final LikeService likeService;
+    private final CommunityLikeService communityLikeService;
 
-    public CommunityController(CommunityService communityService, LikeService likeService) {
+    public CommunityController(CommunityService communityService, CommunityLikeService communityLikeService) {
         this.communityService = communityService;
-        this.likeService = likeService;
+        this.communityLikeService = communityLikeService;
     }
 
     @PostMapping("/")
@@ -37,12 +37,12 @@ public class CommunityController {
     }
 
     @PostMapping("/like")
-    public Integer like(@RequestBody LikeRequest likeRequest) {
-        return likeService.like(likeRequest);
+    public Integer like(@RequestBody CommunityLikeRequest communityLikeRequest) {
+        return communityLikeService.like(communityLikeRequest);
     }
 
     @DeleteMapping("/like")
     public Integer unlike(@RequestParam Integer likeId) {
-        return likeService.unlike(likeId);
+        return communityLikeService.unlike(likeId);
     }
 }

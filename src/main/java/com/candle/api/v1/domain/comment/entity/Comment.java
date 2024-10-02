@@ -6,6 +6,8 @@ import com.candle.api.v1.global.embeddable.Post;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Comment {
@@ -20,6 +22,9 @@ public class Comment {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "comment")
+    private List<CommentLike> commentLikes = new ArrayList<>();
 
     @Embedded
     private Post post;
@@ -46,5 +51,13 @@ public class Comment {
 
     public Post getPost() {
         return post;
+    }
+
+    public List<CommentLike> getLikes() {
+        return commentLikes;
+    }
+
+    public void addLike(CommentLike commentLike) {
+        commentLikes.add(commentLike);
     }
 }
