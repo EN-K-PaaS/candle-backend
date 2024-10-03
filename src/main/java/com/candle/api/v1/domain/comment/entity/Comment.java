@@ -32,16 +32,10 @@ public class Comment {
     protected Comment() {
     }
 
-    public Comment(Community community, User user, String content) {
+    public Comment(Community community, User user, String content, String image) {
         this.post = new Post(content, LocalDateTime.now());
         this.community = community;
         this.user = user;
-        community.addComment(this);
-    }
-
-    public Comment(Community community, String content, String image) {
-        this.post = new Post(content,image, LocalDateTime.now());
-        this.community = community;
         community.addComment(this);
     }
 

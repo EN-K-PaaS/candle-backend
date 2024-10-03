@@ -21,17 +21,17 @@ public class CommunityController {
         this.communityLikeService = communityLikeService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public Integer writingCommunity(@RequestBody CommunityRequest communityRequest) {
         return communityService.writingCommunity(communityRequest);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<CommunityResponse> getCommunity() {
         return communityService.getCommunity();
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping
     public Integer deleteCommunity(@RequestParam Integer id) {
         return communityService.deleteCommunity(id);
     }

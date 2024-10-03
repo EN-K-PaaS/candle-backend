@@ -29,14 +29,16 @@ public class CommentService {
         Integer commentId = commentRequest.communityId();
         String userId = commentRequest.userId();
         String content = commentRequest.content();
-        if (commentRepository.existsByCommunityIdAndUserId(commentId, userId)) {
-            throw new IllegalArgumentException("이미 댓글을 작성한 사용자입니다.");
-        }
+        String image = commentRequest.image();
+
+//        if (commentRepository.existsByCommunityIdAndUserId(commentId, userId)) {
+//            throw new IllegalArgumentException("이미 댓글을 작성한 사용자입니다.");
+//        }
 
         Community community = communityService.findById(commentId);
         User user = userService.findById(userId);
 
-        Comment comment = new Comment(community, user, content);
+        Comment comment = new Comment(community, user, content, image);
         commentRepository.save(comment);
         return comment.getId();
     }

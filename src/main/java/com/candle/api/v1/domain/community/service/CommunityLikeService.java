@@ -28,9 +28,9 @@ public class CommunityLikeService {
         Community community = communityService.findById(communityId);
         User user = userService.findById(userId);
 
-        if (likeRepository.existsByCommunityIdAndUserId(communityId, userId)) {
-            throw new IllegalArgumentException("이미 좋아요를 누른 게시글입니다.");
-        }
+//        if (likeRepository.existsByCommunityIdAndUserId(communityId, userId)) {
+//            throw new IllegalArgumentException("이미 좋아요를 누른 게시글입니다.");
+//        }
 
         CommunityLike communityLike = new CommunityLike(community, user);
 

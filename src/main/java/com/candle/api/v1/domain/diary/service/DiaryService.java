@@ -59,9 +59,7 @@ public class DiaryService {
 
     @Transactional(readOnly = true)
     public List<DiaryResponse> getDiary(String userId) {
-        List<Diary> diaries = diaryRepository.findAll().stream()
-                .filter(diary -> diary.getUser().getId().equals(userId))
-                .toList();
+        List<Diary> diaries = diaryRepository.findByUserId(userId);
 
         if (diaries.isEmpty()) {
             throw new IllegalArgumentException("해당 id에 대한 다이어리가 존재하지 않습니다.");

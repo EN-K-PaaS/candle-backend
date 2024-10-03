@@ -27,9 +27,9 @@ public class CommentLikeService {
         Integer commentId = commentLikeRequest.commentId();
         String userId = commentLikeRequest.userId();
 
-        if (commentLikeRepository.existsByCommunityIdAndUserId(commentId, userId)) {
-            throw new IllegalArgumentException("이미 좋아요를 누른 사용자입니다.");
-        }
+//        if (commentLikeRepository.existsByCommunityIdAndUserId(commentId, userId)) {
+//            throw new IllegalArgumentException("이미 좋아요를 누른 사용자입니다.");
+//        }
 
         Comment comment = commentService.findById(commentId);
         User user = userService.findById(userId);

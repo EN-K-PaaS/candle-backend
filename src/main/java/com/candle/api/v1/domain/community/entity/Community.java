@@ -19,7 +19,7 @@ public class Community {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "community")
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "community")
@@ -58,10 +58,6 @@ public class Community {
 
     public List<CommunityLike> getLike() {
         return communityLike;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public void addComment(Comment comment) {

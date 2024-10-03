@@ -20,22 +20,22 @@ public class CommentController {
         this.commentLikeService = commentLikeService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public Integer writingComment(@RequestBody CommentRequest commentRequest) {
         return commentService.writingComment(commentRequest);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public Integer updateComment(@RequestBody UpdatedCommentRequest commentRequest) {
         return commentService.updateComment(commentRequest);
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping
     public Integer deleteComment(@RequestParam Integer commentId) {
         return commentService.deleteComment(commentId);
     }
 
-    @GetMapping("/")
+    @GetMapping
     public Comment getComment(@RequestParam Integer commentId) {
         return commentService.getComment(commentId);
     }

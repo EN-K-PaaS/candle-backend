@@ -19,22 +19,22 @@ public class DiaryController {
         this.diaryService = diaryService;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public WrittenDiaryResponse writingDiary(@RequestBody WrittenDiaryRequest writtenDiaryRequest) {
         return diaryService.writingDiary(writtenDiaryRequest);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public Integer updateDiary(@RequestBody UpdatedDiaryRequest updatedDiaryRequest) {
         return diaryService.updateDiary(updatedDiaryRequest);
     }
 
-    @GetMapping("/")
-    public List<DiaryResponse> getDiary(@RequestParam String id) {
-        return diaryService.getDiary(id);
+    @GetMapping
+    public List<DiaryResponse> getDiary(@RequestParam String userId) {
+        return diaryService.getDiary(userId);
     }
 
-    @DeleteMapping("/")
+    @DeleteMapping
     public Integer deleteDiary(@RequestParam Integer id) {
         return diaryService.deleteDiary(id);
     }

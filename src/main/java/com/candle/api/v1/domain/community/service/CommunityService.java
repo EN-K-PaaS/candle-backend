@@ -66,10 +66,6 @@ public class CommunityService {
     }
 
     @Transactional(readOnly = true)
-    public boolean existsById(Integer communityId) {
-        return communityRepository.existsById(communityId);
-    }
-
     public Community findById(Integer communityId) {
         return communityRepository.findById(communityId).orElseThrow(() -> new IllegalArgumentException("해당 id에 대한 커뮤니티 게시글이 존재하지 않습니다."));
     }

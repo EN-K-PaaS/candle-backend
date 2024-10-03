@@ -12,9 +12,9 @@ public class DummyGenerator {
         this.dummyService = dummyService;
     }
 
-    @PostConstruct
-    private void generateDummyData() {
-        dummyService.generateUser();
-        dummyService.generateDiary();
-    }
+//    @PostConstruct
+//    private void generateDummyData() {
+//        dummyService.generateUser();
+//        dummyService.generateDiary();
+//    }
 }

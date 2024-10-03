@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 @Entity
 public class User {
     @Id
+    @Column(name = "user_id")
     private String id;
 
     @Column(columnDefinition = "varchar(20)", nullable = false)

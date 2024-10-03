@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 public class CommunityLike {
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
