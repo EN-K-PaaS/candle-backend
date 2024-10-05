@@ -26,17 +26,12 @@ public class DiaryService {
 
     @Transactional
     public WrittenDiaryResponse writingDiary(WrittenDiaryRequest writtenDiaryRequest) {
-        String userId = writtenDiaryRequest.userId();
         String content = writtenDiaryRequest.content();
         String image = writtenDiaryRequest.image();
         LocalDateTime createdAt = writtenDiaryRequest.createdAt();
-
-        if (!userService.existsById(userId)) {
-            throw new IllegalArgumentException("해당 id에 대한 유저가 존재하지 않습니다.");
-        }
-
-        User user = userService.findById(userId);
+        User user = userService.findById(writtenDiaryRequest.userId());
         Diary diary = new Diary(user, content, image, createdAt);
+
         diaryRepository.save(diary);
         return new WrittenDiaryResponse(diary.getId(), "다이어리 작성 완료");
     }
