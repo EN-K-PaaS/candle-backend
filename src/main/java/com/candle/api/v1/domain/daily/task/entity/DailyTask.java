@@ -63,4 +63,8 @@ public class DailyTask {
     public void changeFinished() {
         this.isFinished = !this.isFinished;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

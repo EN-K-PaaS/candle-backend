@@ -62,4 +62,11 @@ public class DailyTaskService {
         dailyTask.changeFinished();
         return dailyTask.isFinished();
     }
+
+    public Integer updateTitleDailyTask(Integer id, String title) {
+        DailyTask dailyTask = dailyTaskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 id의 데일리 체크리스트가 존재하지 않습니다."));
+
+        dailyTask.setTitle(title);
+        return dailyTask.getId();
+    }
 }

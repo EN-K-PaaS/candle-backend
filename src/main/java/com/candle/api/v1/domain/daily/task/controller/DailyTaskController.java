@@ -40,7 +40,12 @@ public class DailyTaskController {
 
     @Operation(summary = "데일리 체크리스트 업데이트", description = "데일리 체크리스트를 업데이트합니다.")
     @PostMapping("/{id}")
-    public boolean updateDailyTask(@PathVariable Integer id) {
+    public boolean updateBooleanDailyTask(@PathVariable Integer id) {
         return dailyTaskService.updateDailyTask(id);
+    }
+
+    @PostMapping("/{id}")
+    public Integer updateTitleDailyTask(@PathVariable Integer id, @RequestParam String title) {
+        return dailyTaskService.updateTitleDailyTask(id, title);
     }
 }
