@@ -41,8 +41,8 @@ public class DiaryController {
     }
 
     @Operation(summary = "다이어리 삭제", description = "다이어리를 삭제합니다.")
-    @DeleteMapping
-    public Integer deleteDiary(@RequestParam Integer id) {
+    @DeleteMapping("/{id}")
+    public Integer deleteDiary(@PathVariable Integer id) {
         return diaryService.deleteDiary(id);
     }
 }

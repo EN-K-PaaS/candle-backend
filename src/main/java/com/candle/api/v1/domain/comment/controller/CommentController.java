@@ -36,15 +36,15 @@ public class CommentController {
     }
 
     @Operation(summary = "댓글 삭제", description = "댓글을 삭제합니다.")
-    @DeleteMapping
-    public Integer deleteComment(@RequestParam Integer commentId) {
-        return commentService.deleteComment(commentId);
+    @DeleteMapping("/{id}")
+    public Integer deleteComment(@PathVariable Integer id) {
+        return commentService.deleteComment(id);
     }
 
     @Operation(summary = "댓글 조회", description = "댓글을 조회합니다.")
-    @GetMapping
-    public Comment getComment(@RequestParam Integer commentId) {
-        return commentService.getComment(commentId);
+    @GetMapping("/{id}")
+    public Comment getComment(@PathVariable Integer id) {
+        return commentService.getComment(id);
     }
 
     @Operation(summary = "댓글 좋아요", description = "댓글에 좋아요를 누릅니다.")
@@ -54,8 +54,8 @@ public class CommentController {
     }
 
     @Operation(summary = "댓글 좋아요 취소", description = "댓글에 좋아요를 취소합니다.")
-    @DeleteMapping("/like")
-    public Integer unLikeComment(@RequestParam Integer commentId) {
-        return commentLikeService.unLikeComment(commentId);
+    @DeleteMapping("/like/{id}")
+    public Integer unLikeComment(@PathVariable Integer id) {
+        return commentLikeService.unLikeComment(id);
     }
 }

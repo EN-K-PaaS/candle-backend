@@ -37,8 +37,8 @@ public class CommunityController {
     }
 
     @Operation(summary = "커뮤니티 수정", description = "커뮤니티를 수정합니다.")
-    @DeleteMapping
-    public Integer deleteCommunity(@RequestParam Integer id) {
+    @DeleteMapping("/{id}")
+    public Integer deleteCommunity(@PathVariable Integer id) {
         return communityService.deleteCommunity(id);
     }
 
@@ -49,8 +49,8 @@ public class CommunityController {
     }
 
     @Operation(summary = "커뮤니티 좋아요 취소", description = "커뮤니티에 좋아요를 취소합니다.")
-    @DeleteMapping("/like")
-    public Integer unlike(@RequestParam Integer likeId) {
-        return communityLikeService.unlike(likeId);
+    @DeleteMapping("/like/{id}")
+    public Integer unlike(@PathVariable Integer id) {
+        return communityLikeService.unlike(id);
     }
 }
