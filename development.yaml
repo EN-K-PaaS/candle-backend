@@ -21,9 +21,9 @@ spec:
         - name: SPRING_DATASOURCE_URL
           value: jdbc:mysql://mysql-service:13306/candle
         - name: SPRING_DATASOURCE_USERNAME
-          value: root
+          value: MYSQL_USER_NAME
         - name: SPRING_DATASOURCE_PASSWORD
-          value: qwer1234
+          value: MYSQL_PASSWORD
       imagePullSecrets: 
       - name: regcred
 ---

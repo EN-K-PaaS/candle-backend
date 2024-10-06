@@ -19,7 +19,7 @@ spec:
         - containerPort: 3306  # MySQL 기본 포트
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: qwer1234  # MySQL 루트 비밀번호 설정
+          value: MYSQL_PASSWORD  # MySQL 루트 비밀번호 설정
         - name: MYSQL_DATABASE
           value: candle  # 생성할 기본 데이터베이스
         volumeMounts:
