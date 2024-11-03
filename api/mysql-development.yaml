@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1  # MySQL은 보통 1개의 인스턴스로 운영
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql-container
+        image: mysql:8.0  # 사용할 MySQL 이미지 (버전 8.0)
+        ports:
+        - containerPort: 3306  # MySQL 기본 포트
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: qwer1234  # MySQL 루트 비밀번호 설정
+        - name: MYSQL_DATABASE
+          value: candle  # 생성할 기본 데이터베이스
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql  # MySQL 데이터가 저장될 경로
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc  # PVC로 스토리지를 연결
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi  # 1GB의 스토리지를 요청
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 13306  # MySQL의 기본 포트
+      targetPort: 3306
+  type: ClusterIP  # 클러스터 내부에서만 접근 가능
+
